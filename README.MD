@@ -56,7 +56,11 @@ Expected result:
 Status 201 
 {}
 
-
+### Clean up 
+```sh
+$ aws cloudformation delete-stack --stack-name sam-stack
+$ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southeast-2
+```
 
 #### Improvements
 - Better handling of Parameter validation in the lambda. Eg. To handle when incompatible data types are given instead of the accepted ‘string’ data type. 
