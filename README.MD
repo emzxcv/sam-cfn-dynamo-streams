@@ -24,17 +24,47 @@ $ aws s3 mb s3://remember-to-delete-bucket
 $ sam package --template-file sam-template.yaml --s3-bucket remember-to-delete-bucket --output-template-file packaged.yaml
 ```
 
-### Deployment
+### Deployment 
 
 ```sh
-$ sam deploy --template-file //PATH-TO-PACKAGED.YAML --stack-name sam-stack  --capabilities CAPABILITY_IAM --parameter-overrides "MyName=emilyha" "Email={YOUR_EMAIL}@gmail.com" "TopicName=dynamoStreams"
+$ sam deploy --template-file packaged.yaml --stack-name sam-stack  --capabilities CAPABILITY_IAM --parameter-overrides "MyName=emilyha"
 ```
+
+### Testing
+After the stack is deployed. Grab the RootUrl from the Outputs section of the stack. You can use postman or curl command to hit the endpoint : RootUrl/v1/add_new
+
+```sh
+{
+  "team_country": "US",
+  "team_name": "TeamPika",
+  "team_desc": "Wild Pikachus",
+  "team_rating": "brilliant"
+}
+```
+Example curl:
+
+```sh
+curl -vvv -X POST -d '{
+  "team_country": "Aus",
+  "team_name": "TeamRocket",
+  "team_desc": "Moon",
+  "team_rating": "excellent"
+}' -H "Content-Type: application/json" https://ddef0zucwa.execute-api.ap-southeast-2.amazonaws.com/v1/add_new
+```
+
+Expected result:
+Status 201 
+{}
+
 
 
 #### Improvements
 - Better handling of Parameter validation in the lambda. Eg. To handle when incompatible data types are given instead of the accepted ‘string’ data type. 
 - Configure TracingConfig to trace incoming requests with AWS X-ray 
 - Unit Testing + Integration Tests
+- Return a more informative response message.
+- Cater for other http requests 
+- Use Swagger to define api-gateway
 - Authentication
 - Check for Duplicate data (data already inserted) in lambda
 - VPC configurations
