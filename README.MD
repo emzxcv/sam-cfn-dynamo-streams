@@ -67,20 +67,22 @@ $ aws cloudformation delete-stack --stack-name sam-stack
 $ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southeast-2 
 ```
 
-#### Improvements
+#### Important Improvements
+- Use CodePipeline to trigger deployment when commits are made - one for production branch and one for master branch following Gitlab flow strategy. 
 - Better handling of Parameter validation in the lambda. Eg. To handle when incompatible data types are given instead of the accepted ‘string’ data type. 
-- Configure TracingConfig to trace incoming requests with AWS X-ray 
-- Unit Testing + Integration Tests
 - Return a more informative response message.
 - Cater for other http requests 
-- Use Swagger to define api-gateway
+- Unit Testing + Integration Tests
 - Authentication
+
+#### Other Improvements
+- Configure TracingConfig to trace incoming requests with AWS X-ray 
+- Use Swagger to define api-gateway
 - Check for Duplicate data (data already inserted) in lambda
 - VPC configurations
 - TAG all resources
 - Cloudformation StackSet for multi region / multi-account deployment
 - Use SQS FiFO queues for deduplication with MessageDeduplicationId (https://aws.amazon.com/blogs/aws/new-for-amazon-simple-queue-service-fifo-queues-with-exactly-once-delivery-deduplication/) 
-- Use CodePipeline to trigger deployment when commits are made - one for production branch and one for master branch following Gitlab flow strategy. 
 - Since I’ve chosen to use SAM, It would be nice to be integrated with CodeBuild and CodeDeploy for gradual code deployment.
 - Try a serverless framework such as Architect (https://arc.codes/)
 - You can create a an Analytics Pipeline by writing the DynamoDB stream records to Kinesis Firehose (using Lambda or a Kinesis Client Library application), then on to S3 for batching into Redshift.
