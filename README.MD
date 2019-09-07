@@ -52,7 +52,7 @@ curl -vvv -X POST -d '{
   "team_name": "TeamRocket",
   "team_desc": "Moon",
   "team_rating": "excellent"
-}' -H "Content-Type: application/json" https://8l3ot04fai.execute-api.ap-southeast-2.amazonaws.com/v1/add_new
+}' -H "Content-Type: application/json" https://8lot04fai.execute-api.ap-southeast-2.amazonaws.com/v1/add_new
 ```
 
 Expected result:
