@@ -82,9 +82,9 @@ Resources:
                   print('Team Description: %s' % event['team_desc'])
                   print('Team Rating: %s' % event['team_rating'])
                   dynamo_itemcreate(event['team_name'], event['team_country'], event['team_desc'],event['team_rating'])
-                  return response({'message': 'Successfully created item in table.' }, 201)
+                  return response({'message': 'Success' }, 201)
               except Exception as e:
-                  return response({'message': e}, 400)
+                  return response({'message': e.message}, 400)
               
 
       Description: API Gateway TechChallenge
@@ -170,7 +170,7 @@ Resources:
       HttpMethod: POST
       AuthorizationType: NONE
       Integration:
-        Type: AWS_PROXY
+        Type: AWS
         IntegrationHttpMethod: POST
         Uri: !Join
           - ""
