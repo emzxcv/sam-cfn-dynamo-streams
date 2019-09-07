@@ -11,7 +11,7 @@ Install the dependencies to run the template:
 
 Please follow this https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html to install the required dependencies first.
 
-
+## FOR DEVELOPMENT PURPOSES ( You can skip to DEPLOYMENT )
 ### Set up 
 
 ```sh
@@ -24,7 +24,8 @@ $ aws s3 mb s3://remember-to-delete-bucket
 $ sam package --template-file sam-template.yaml --s3-bucket remember-to-delete-bucket --output-template-file packaged.yaml
 ```
 
-### Deployment 
+## FOR PRODUCTION PURPOSES
+### Deployment (START HERE IF YOU ARE NOT DEVELOPING)
 
 ```sh
 $ sam deploy --template-file packaged.yaml --stack-name sam-stack  --capabilities CAPABILITY_IAM --parameter-overrides "MyName=emilyha"
@@ -32,6 +33,8 @@ $ sam deploy --template-file packaged.yaml --stack-name sam-stack  --capabilitie
 
 ### Testing
 After the stack is deployed. Grab the RootUrl from the Outputs section of the stack. You can use postman or curl command to hit the endpoint : RootUrl/v1/add_new
+
+My suggestion is to subscribe to the created sns topic via email protocol so you can receive an email once the POST request is successful. 
 
 ```sh
 {
@@ -49,7 +52,7 @@ curl -vvv -X POST -d '{
   "team_name": "TeamRocket",
   "team_desc": "Moon",
   "team_rating": "excellent"
-}' -H "Content-Type: application/json" https://ddef0zucwa.execute-api.ap-southeast-2.amazonaws.com/v1/add_new
+}' -H "Content-Type: application/json" https://8l3ot04fai.execute-api.ap-southeast-2.amazonaws.com/v1/add_new
 ```
 
 Expected result:
@@ -57,9 +60,11 @@ Status 201
 {}
 
 ### Clean up 
+
+No need to delete bucket if you didn't create it during development. 
 ```sh
 $ aws cloudformation delete-stack --stack-name sam-stack
-$ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southeast-2
+$ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southeast-2 
 ```
 
 #### Improvements
