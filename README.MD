@@ -74,6 +74,7 @@ $ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southea
 - Cater for other http requests 
 - Unit Testing + Integration Tests
 - Authentication
+- Enable caching for better performance
 
 #### Other Improvements
 - Configure TracingConfig to trace incoming requests with AWS X-ray 
