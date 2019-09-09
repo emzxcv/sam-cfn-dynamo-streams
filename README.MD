@@ -11,27 +11,26 @@ Install the dependencies to run the template:
 
 Please follow this https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html to install the required dependencies first.
 
-## FOR DEVELOPMENT PURPOSES ( You can skip to DEPLOYMENT )
-### Set up 
+Follow the steps 1-5 in order. 
+### 1. Set up 
 
 ```sh
 $ aws s3 mb s3://remember-to-delete-bucket
 ```
 
-### Packaging with SAM 
+### 2. Packaging with SAM 
 
 ```sh
 $ sam package --template-file sam-template.yaml --s3-bucket remember-to-delete-bucket --output-template-file packaged.yaml
 ```
 
-## FOR PRODUCTION PURPOSES
-### Deployment (START HERE IF YOU ARE NOT DEVELOPING)
+### 3. Deployment
 
 ```sh
 $ sam deploy --template-file packaged.yaml --stack-name sam-stack  --capabilities CAPABILITY_IAM --parameter-overrides "MyName=emilyha"
 ```
 
-### Testing
+### 4. Testing
 After the stack is deployed. Grab the RootUrl from the Outputs section of the stack. You can use postman or curl command to hit the endpoint : RootUrl/v1/add_new
 
 My suggestion is to subscribe to the created sns topic via email protocol so you can receive an email once the POST request is successful. 
@@ -59,11 +58,12 @@ Expected result:
 Status 201 
 {}
 
-### Clean up 
+### 5. Clean up 
 
 No need to delete bucket if you didn't create it during development. 
 ```sh
 $ aws cloudformation delete-stack --stack-name sam-stack
+$ aws s3 rm s3://remember-to-delete-bucket --recursive
 $ aws s3api delete-bucket --bucket remember-to-delete-bucket --region ap-southeast-2 
 ```
 
